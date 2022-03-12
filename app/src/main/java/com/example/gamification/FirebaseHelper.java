@@ -30,7 +30,7 @@ public class FirebaseHelper {
         return mAuth;
     }
 
-    public void addUserToFirestore(String name, String newUID) {
+    public void addUserToFirestore(String name, String level, String newUID) {
         // this will add a document with the uid of the current user to the collection called "users"
         // for this we will create a hash map since there are only two fields - a name and the uid value
 
@@ -41,6 +41,7 @@ public class FirebaseHelper {
         //put data into my object using a key value pair where I label each item I put in the Map
         // the key "name" is the key that is used to label the data in firestore
         user.put("name", name);
+        user.put("level", level);
 
         // this iwll create a new document in the collection "users" and assign it a docID that is = to newID
         db.collection("users").document(newUID).set(user)
