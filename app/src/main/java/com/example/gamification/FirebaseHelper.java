@@ -1,3 +1,5 @@
+package com.example.gamification;
+
 import android.util.Log;
 
 import androidx.annotation.NonNull;
