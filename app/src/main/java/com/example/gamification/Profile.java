@@ -1,10 +1,13 @@
 package com.example.gamification;
 
+import java.util.ArrayList;
+
 public class Profile {
     String name;
     int points;
     String level;
     String code;
+    ArrayList<String> employees;
 
     public Profile(String n, int p, String l, String c){
         name = n;
@@ -13,10 +16,11 @@ public class Profile {
         code = c;
     }
 
-    public Profile(String n, String l, String c){
+    public Profile(String n, String l, String c, ArrayList<String> e){
         name = n;
         level = l;
         code = c;
+        employees = e;
     }
 
     public Profile(){
@@ -25,6 +29,8 @@ public class Profile {
         level = "l";
         code = "";
     }
+
+
 
 
     public String getLevel() {

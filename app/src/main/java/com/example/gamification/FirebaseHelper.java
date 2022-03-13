@@ -107,7 +107,9 @@ public class FirebaseHelper {
                                     points = (int)(Math.floor(documentSnapshot.getDouble("points")));
                                     profile = new Profile(name, points, level, code);
                                 } else {
-                                    profile = new Profile(name, level, code);
+
+                                    ArrayList<String> u = new ArrayList<>();
+                                    profile = new Profile(name, level, code, u);
                                 }
                                 firestoreCallback.onCallback(profile);
                             }
