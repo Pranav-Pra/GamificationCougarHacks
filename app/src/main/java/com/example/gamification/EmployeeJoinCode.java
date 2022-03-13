@@ -27,13 +27,15 @@ public class EmployeeJoinCode extends AppCompatActivity {
         // TODO: Create a running list of all codes that have been generated
         MainActivity.firebaseHelper.getCodes(new FirebaseHelper.CodesCallback() {
             @Override
-            public void onCallback(ArrayList<String> codes) {
+            public void onCallback(ArrayList<Code> codes) {
                 boolean found = false;
-                for(String code : codes) {
-                    if(joinCode.equals(code)) {
+                for(Code code : codes) {
+                    if(joinCode.equals(code.getCode())) {
                         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                         startActivity(intent);
-                        MainActivity.firebaseHelper.updateCode(code);
+                        MainActivity.firebaseHelper.updateCode(code.getCode());
+                        MainActivity.firebaseHelper.updateBoss(code.getBossUid());
+                        MainActivity.firebaseHelper.addToBossArray(code.bossUid, MainActivity.firebaseHelper.getUid());
                         found = true;
                     }
                 }

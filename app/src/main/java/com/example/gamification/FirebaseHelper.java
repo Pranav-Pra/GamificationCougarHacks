@@ -9,6 +9,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -36,6 +37,9 @@ public class FirebaseHelper {
     public FirebaseAuth getmAuth() {
         return mAuth;
     }
+    public String getUid(){
+        return uid;
+    }
 
     public void updateUid(String uid) {
         FirebaseHelper.uid = uid;
@@ -44,6 +48,10 @@ public class FirebaseHelper {
     public void updateCode(String code) {
         DocumentReference documentReference = db.collection(uid).document(uid);
         documentReference.update("code", code);
+    }
+    public void updateBoss(String bossUid){
+        DocumentReference documentReference = db.collection(uid).document(uid);
+        documentReference.update("bossUid", bossUid);
     }
 
     public void addUserToFirestore(String name, String level, String code, String newUID) {
@@ -106,13 +114,17 @@ public class FirebaseHelper {
                         @Override
                         public void onSuccess(@NonNull DocumentSnapshot documentSnapshot) {
                             if (documentSnapshot.exists()) {
+                                int points;
+                                String name = documentSnapshot.getString("name");
                                 String level = documentSnapshot.getString("level");
+                                String code = documentSnapshot.getString("code");
                                 if(level.equals("Employee")) {
                                     Employee current = documentSnapshot.toObject(Employee.class);
-                                    profile = documentSnapshot.toObject(Profile.class);
+                                    points = (int)(Math.floor(documentSnapshot.getDouble("points")));
+                                    profile = new Profile(name, points, level, code);
                                 } else {
                                     Boss currentBoss = documentSnapshot.toObject(Boss.class);
-                                    profile = documentSnapshot.toObject(Profile.class);
+                                    profile = new Profile(name, level, code);
                                 }
 
 
@@ -128,13 +140,18 @@ public class FirebaseHelper {
             .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                 @Override
                 public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                    ArrayList<String> codes = new ArrayList<>();
+                    ArrayList<Code> codes = new ArrayList<>();
                     for(QueryDocumentSnapshot documentSnapshot: queryDocumentSnapshots) {
-                        codes.add(documentSnapshot.getId());
+                        codes.add(documentSnapshot.toObject(Code.class));
                     }
                     codesCallback.onCallback(codes);
                 }
             });
+    }
+
+    public void addToBossArray(String bossUid, String currentUid){
+        DocumentReference profileRef = db.collection(bossUid).document(bossUid);
+        profileRef.update("employees", FieldValue.arrayUnion(currentUid));
     }
 
     public interface FirestoreCallback {
@@ -142,7 +159,7 @@ public class FirebaseHelper {
     }
 
     public interface CodesCallback {
-        void onCallback(ArrayList<String> codes);
+        void onCallback(ArrayList<Code> codes);
     }
 
 }
