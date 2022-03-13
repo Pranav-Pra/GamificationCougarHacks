@@ -6,21 +6,23 @@
     android:layout_height="match_parent"
     tools:context=".EmployeeJoinCode">
 
+
     <ImageView
-        android:id="@+id/imageView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="244dp"
+        android:id="@+id/imageView10"
+        android:layout_width="303dp"
+        android:layout_height="170dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/gametimetopcircle" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.842"
+        app:srcCompat="@drawable/border2" />
 
     <EditText
         android:id="@+id/employeeJoinCodeET"
         android:layout_width="239dp"
         android:layout_height="59dp"
+        android:background="@drawable/border"
         android:ems="10"
         android:hint="Enter Join Code..."
         android:inputType="textPersonName"
@@ -29,18 +31,36 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView4"
-        app:layout_constraintVertical_bias="0.222" />
+        app:layout_constraintVertical_bias="0.203" />
+
+
 
     <Button
         android:id="@+id/employeeJoinCodeBtn"
         android:layout_width="166dp"
         android:layout_height="64dp"
-        android:layout_marginBottom="68dp"
+        android:layout_marginBottom="80dp"
         android:onClick="employeeJoinCode"
         android:text="Join"
+        android:textColor="@color/pink_red"
+        app:backgroundTint="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="256dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/gametimetopcircle" />
+
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
