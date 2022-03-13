@@ -21,9 +21,11 @@
         android:id="@+id/imageView7"
         android:layout_width="340dp"
         android:layout_height="344dp"
-        app:srcCompat="@drawable/border2"
-        tools:layout_editor_absoluteX="28dp"
-        tools:layout_editor_absoluteY="198dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/border2" />
 
     <EditText
         android:id="@+id/passSignUpET"
