@@ -3,6 +3,7 @@ package com.example.gamification;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -25,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
     public static FirebaseHelper firebaseHelper;
     private EditText nameET, emailSignUpET, passSignUpET, confPassSignUpET, emailSignInET, passSignInET;
     private Spinner signUpSpinner;
+    private ArrayList<String> userData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
 
                                 //TODO: we can do any other UI updating or change screens based on how our app should respond
                                 // grab firebase data, if they are employee display points, if they are boss display code
-
+                                updateIfLoggedIn();
 
                                 // this is another way to create the intent from inside the OnCompleteListener
                                 // Intent intent = new Intent(MainActivity.this, AddItemActivity.class);
@@ -154,7 +156,7 @@ public class MainActivity extends AppCompatActivity {
                                 // let's further investigate why this method call is needed
                                 // TODO: firebaseHelper.attachReadDataToUser();
 
-
+                                updateIfLoggedIn();
 
                                 // choose whatever actions you want - update UI, switch to a new screen, etc.
                                 // take the user to the screen where they can enter wish list items
@@ -169,6 +171,43 @@ public class MainActivity extends AppCompatActivity {
                         }
                     });
         }
+    }
+
+    public void updateIfLoggedIn() {
+        FirebaseUser user = firebaseHelper.getmAuth().getCurrentUser();
+
+        if(user != null) {
+            firebaseHelper.getData(new FirebaseHelper.FirestoreCallback() {
+                @Override
+                public void onCallback(ArrayList<String> data) {
+                    userData = data;
+                    String name = userData.get(0);
+                    String level = userData.get(1);
+                    String code = userData.get(2);
+                    if(level.equals("Employee")) {
+                        String points = userData.get(3);
+                    }
+
+                    if(level.equals("Employee") && code.equals("")) {
+                        Intent intent = new Intent(getApplicationContext(), EmployeeJoinCode.class);
+                        startActivity(intent);
+                    } else {
+                        Intent intent = new Intent(getApplicationContext(), HomeScreen.class);
+                        intent.putExtra("name", userData.get(0));
+                        intent.putExtra("level", userData.get(1));
+                        intent.putExtra("code", userData.get(2));
+                        if (userData.get(1).equals("Employee")) {
+                            intent.putExtra("points", userData.get(3));
+                        }
+                        startActivity(intent);
+                    }
+                }
+            });
+        }
+    }
+
+    public ArrayList<String> getUserData() {
+        return userData;
     }
 
     private String generateRandomCode() {

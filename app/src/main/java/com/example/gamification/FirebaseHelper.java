@@ -7,8 +7,10 @@ import androidx.annotation.NonNull;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,6 +19,7 @@ public class FirebaseHelper {
     private static String uid = null;
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
+    private ArrayList<String> data = new ArrayList<>();
 
     public FirebaseHelper() {
         //get a reference to or the instance of the auth and firestore elemnts
@@ -47,6 +50,9 @@ public class FirebaseHelper {
         user.put("name", name);
         user.put("level", level);
         user.put("code", code);
+        if(level.equals("Employee")) {
+            user.put("points", 0);
+        }
 
         // this will create a new document in the collection "users" and assign it a docID that is = to newID
         db.collection(newUID).document(newUID).set(user)
@@ -62,5 +68,31 @@ public class FirebaseHelper {
                         Log.d("Pranav", "error adding user account", e);
                     }
                 });
+    }
+
+    public void getData(FirestoreCallback firestoreCallback) {
+        if(mAuth.getCurrentUser() != null) {
+            uid = mAuth.getUid();
+            db.collection(uid).document(uid).get()
+                    .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                        @Override
+                        public void onSuccess(@NonNull DocumentSnapshot documentSnapshot) {
+                            if (documentSnapshot.exists()) {
+                                data.clear();
+                                data.add(documentSnapshot.getString("name"));
+                                data.add(documentSnapshot.getString("level"));
+                                data.add(documentSnapshot.getString("code"));
+                                if(documentSnapshot.getString("level").equals("Employee")) {
+                                    data.add("" + Math.floor(documentSnapshot.getDouble("points")));
+                                }
+                                firestoreCallback.onCallback(data);
+                            }
+                        }
+                    });
+        }
+    }
+
+    public interface FirestoreCallback {
+        void onCallback(ArrayList<String> data);
     }
 }
