@@ -19,7 +19,8 @@ public class FirebaseHelper {
     private static String uid = null;
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
-    private ArrayList<String> data = new ArrayList<>();
+    private ArrayList<Profile> data = new ArrayList<>();
+    private ArrayList<Profile> leaderboardObjects = new ArrayList<>();
 
     public FirebaseHelper() {
         //get a reference to or the instance of the auth and firestore elemnts
@@ -78,12 +79,13 @@ public class FirebaseHelper {
                         @Override
                         public void onSuccess(@NonNull DocumentSnapshot documentSnapshot) {
                             if (documentSnapshot.exists()) {
+                                Profile user = new Profile();
                                 data.clear();
-                                data.add(documentSnapshot.getString("name"));
-                                data.add(documentSnapshot.getString("level"));
-                                data.add(documentSnapshot.getString("code"));
+                                user.setName(documentSnapshot.getString("name"));
+                                user.setLevel(documentSnapshot.getString("level"));
+                                user.setCode(documentSnapshot.getString("code"));
                                 if(documentSnapshot.getString("level").equals("Employee")) {
-                                    data.add("" + Math.floor(documentSnapshot.getDouble("points")));
+                                    user.setPoints(Math.floor(documentSnapshot.getDouble("points"));
                                 }
                                 firestoreCallback.onCallback(data);
                             }
@@ -93,6 +95,6 @@ public class FirebaseHelper {
     }
 
     public interface FirestoreCallback {
-        void onCallback(ArrayList<String> data);
+        void onCallback(ArrayList<Profile> data);
     }
 }

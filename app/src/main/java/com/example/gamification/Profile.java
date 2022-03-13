@@ -4,8 +4,22 @@ public class Profile {
     String name;
     int points;
     String level;
-    int code;
-    boolean employee;
+    String code;
+
+    public Profile(String n, int p, String l, String c){
+        name = n;
+        points = p;
+        level = l;
+        code = c;
+    }
+
+    public Profile(){
+        name = "";
+        points = 0;
+        level = "l";
+        code = "";
+    }
+
 
     public String getLevel() {
         return level;
@@ -15,29 +29,18 @@ public class Profile {
         this.level = level;
     }
 
-    public int getCode() {
+    public String getCode() {
         return code;
     }
 
-    public void setCode(int code) {
+    public void setCode(String code) {
         this.code = code;
     }
 
-    public boolean isEmployee() {
-        return employee;
-    }
 
-    public void setEmployee(boolean employee) {
-        this.employee = employee;
-    }
 
-    public Profile(String n, int p, String l, int c, boolean e){
-        name = n;
-        points = p;
-        level = l;
-        code = c;
-        employee = e;
-    }
+
+
 
     public String getName() {
         return name;
