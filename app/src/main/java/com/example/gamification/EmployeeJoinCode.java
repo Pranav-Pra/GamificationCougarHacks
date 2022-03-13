@@ -33,8 +33,7 @@ public class EmployeeJoinCode extends AppCompatActivity {
                     if(joinCode.equals(code.getCode())) {
                         MainActivity.firebaseHelper.updateCode(code.getCode());
                         MainActivity.firebaseHelper.updateBoss(code.getBossUid());
-                        Log.d("Pranav", MainActivity.firebaseHelper.getUid());
-
+                        Log.d("Pranav", code.getBossUid());
                         MainActivity.firebaseHelper.addToBossArray(code.getBossUid(), MainActivity.firebaseHelper.getUid());
                         found = true;
                         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
