@@ -19,6 +19,8 @@ public class Leaderboard extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_leaderboard);
         dbHelper = new FirebaseHelper();
+    }
+        /**
         dbHelper.getData(new FirebaseHelper.FirestoreCallback() {
             @Override
             public void onCallback(Profile profile) {
@@ -28,6 +30,7 @@ public class Leaderboard extends AppCompatActivity {
                 else{
                     bUID = profile.getBossUid();
                 }
+
                 dbHelper = new FirebaseHelper(bUID);
                 leaderboardObject = dbHelper.getLeaderboardObjects();
                 TextView text1 = findViewById(R.id.first);
@@ -78,6 +81,7 @@ public class Leaderboard extends AppCompatActivity {
         text10.setText("10\t" + leaderboardObject.get(9).toString());
 
     }
+
 
     private static ArrayList mergeSort(ArrayList<Profile> left, ArrayList<Profile> right, ArrayList<Profile> whole) {
         int leftIndex = 0;
@@ -141,6 +145,7 @@ public class Leaderboard extends AppCompatActivity {
             return mergeSort(left, right, a);
         }
     }
+         **/
     public void goToHomeScreen(View v) {
         Intent hIntent = new Intent(Leaderboard.this, HomeScreen.class);
         startActivity(hIntent);
