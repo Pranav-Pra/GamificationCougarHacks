@@ -33,6 +33,7 @@ public class EmployeeJoinCode extends AppCompatActivity {
                     if(joinCode.equals(code)) {
                         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                         startActivity(intent);
+                        MainActivity.firebaseHelper.updateCode(code);
                         found = true;
                     }
                 }
