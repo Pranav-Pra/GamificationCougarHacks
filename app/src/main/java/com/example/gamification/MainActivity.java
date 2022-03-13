@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
     public static FirebaseHelper firebaseHelper;
     private EditText nameET, emailSignUpET, passSignUpET, confPassSignUpET, emailSignInET, passSignInET;
     private Spinner signUpSpinner;
-    private ArrayList<String> userData;
+    private Profile userProfile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -179,25 +179,24 @@ public class MainActivity extends AppCompatActivity {
         if(user != null) {
             firebaseHelper.getData(new FirebaseHelper.FirestoreCallback() {
                 @Override
-                public void onCallback(ArrayList<String> data) {
-                    userData = data;
-                    String name = userData.get(0);
-                    String level = userData.get(1);
-                    String code = userData.get(2);
-                    if(level.equals("Employee")) {
-                        String points = userData.get(3);
+                public void onCallback(Profile profile) {
+                    if(profile.getLevel().equals("Employee")) {
+                        userProfile = new Profile(profile.getName(), profile.getPoints(), profile.getLevel(), profile.getCode());
+                    } else {
+
+                        userProfile = new Profile(profile.getName(), profile.getLevel(), profile.getCode());
                     }
 
-                    if(level.equals("Employee") && code.equals("")) {
+                    if(userProfile.getLevel().equals("Employee") && userProfile.getCode().equals("")) {
                         Intent intent = new Intent(getApplicationContext(), EmployeeJoinCode.class);
                         startActivity(intent);
                     } else {
                         Intent intent = new Intent(getApplicationContext(), HomeScreen.class);
-                        intent.putExtra("name", userData.get(0));
-                        intent.putExtra("level", userData.get(1));
-                        intent.putExtra("code", userData.get(2));
-                        if (userData.get(1).equals("Employee")) {
-                            intent.putExtra("points", userData.get(3));
+                        intent.putExtra("name", userProfile.getName());
+                        intent.putExtra("level", userProfile.getLevel());
+                        intent.putExtra("code", userProfile.getCode());
+                        if (userProfile.getLevel().equals("Employee")) {
+                            intent.putExtra("points", userProfile.getPoints());
                         }
                         startActivity(intent);
                     }
@@ -206,8 +205,8 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public ArrayList<String> getUserData() {
-        return userData;
+    public Profile getUserData() {
+        return userProfile;
     }
 
     private String generateRandomCode() {

@@ -19,7 +19,7 @@ public class FirebaseHelper {
     private static String uid = null;
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
-    private ArrayList<Profile> data = new ArrayList<>();
+    private Profile profile;
     private ArrayList<Profile> leaderboardObjects = new ArrayList<>();
 
     public FirebaseHelper() {
@@ -79,15 +79,17 @@ public class FirebaseHelper {
                         @Override
                         public void onSuccess(@NonNull DocumentSnapshot documentSnapshot) {
                             if (documentSnapshot.exists()) {
-                                Profile user = new Profile();
-                                data.clear();
-                                user.setName(documentSnapshot.getString("name"));
-                                user.setLevel(documentSnapshot.getString("level"));
-                                user.setCode(documentSnapshot.getString("code"));
-                                if(documentSnapshot.getString("level").equals("Employee")) {
-                                    user.setPoints(Math.floor(documentSnapshot.getDouble("points"));
+                                int points;
+                                String name = documentSnapshot.getString("name");
+                                String level = documentSnapshot.getString("level");
+                                String code = documentSnapshot.getString("code");
+                                if(level.equals("Employee")) {
+                                    points = (int)(Math.floor(documentSnapshot.getDouble("points")));
+                                    profile = new Profile(name, points, level, code);
+                                } else {
+                                    profile = new Profile(name, level, code);
                                 }
-                                firestoreCallback.onCallback(data);
+                                firestoreCallback.onCallback(profile);
                             }
                         }
                     });
@@ -95,6 +97,6 @@ public class FirebaseHelper {
     }
 
     public interface FirestoreCallback {
-        void onCallback(ArrayList<Profile> data);
+        void onCallback(Profile profile);
     }
 }
