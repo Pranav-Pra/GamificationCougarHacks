@@ -3,14 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/prasa/Documents/GitHub/GamificationCougarHacks/app/src/main/res/layout/activity_add_task.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/prasa/Documents/GitHub/GamificationCougarHacks/app/src/main/res/layout/activity_employee_join_code.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/prasa/Documents/GitHub/GamificationCougarHacks/app/src/main/res/layout/activity_home_screen.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/prasa/Documents/GitHub/GamificationCougarHacks/app/src/main/res/layout/activity_leaderboard.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/prasa/Documents/GitHub/GamificationCougarHacks/app/src/main/res/layout/activity_main.xml" value="0.25416666666666665" />
-        <entry key="..\:/Users/prasa/Documents/GitHub/GamificationCougarHacks/app/src/main/res/layout/activity_view_task.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/prasa/Documents/GitHub/GamificationCougarHacks/app/src/main/res/layout/sign_in.xml" value="0.25416666666666665" />
-        <entry key="..\:/Users/prasa/Documents/GitHub/GamificationCougarHacks/app/src/main/res/layout/sign_up.xml" value="0.264" />
+        <entry key="app/src/main/res/layout/activity_leaderboard.xml" value="0.1716485507246377" />
       </map>
     </option>
   </component>
