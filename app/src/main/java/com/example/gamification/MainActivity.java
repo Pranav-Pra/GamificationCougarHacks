@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         firebaseHelper = new FirebaseHelper();
+        updateIfLoggedIn();
     }
 
     public void goToSignUp(View v) {

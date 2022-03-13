@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -38,6 +39,11 @@ public class FirebaseHelper {
 
     public void updateUid(String uid) {
         FirebaseHelper.uid = uid;
+    }
+
+    public void updateCode(String code) {
+        DocumentReference documentReference = db.collection(uid).document(uid);
+        documentReference.update("code", code);
     }
 
     public void addUserToFirestore(String name, String level, String code, String newUID) {
