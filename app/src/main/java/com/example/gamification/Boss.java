@@ -5,16 +5,16 @@ import java.util.ArrayList;
 public class Boss {
     String name;
     String code;
-    int points;
     String level;
     ArrayList<String> employees;
+    ArrayList<String> employeeNames;
 
-    public Boss(String n, String c, int p, String l, ArrayList<String> e){
+    public Boss(String n, String c, String l, ArrayList<String> e, ArrayList<String> eN){
         name = n;
         code = c;
-        points = p;
         level = l;
         employees = e;
+        employeeNames = eN;
     }
     public Boss(){
 
@@ -37,14 +37,6 @@ public class Boss {
         this.code = code;
     }
 
-    public int getPoints() {
-        return points;
-    }
-
-    public void setPoints(int points) {
-        this.points = points;
-    }
-
     public String getLevel() {
         return level;
     }
@@ -59,6 +51,14 @@ public class Boss {
 
     public void setEmployees(ArrayList<String> employees) {
         this.employees = employees;
+    }
+
+    public ArrayList<String> getEmployeeNames() {
+        return employeeNames;
+    }
+
+    public void setEmployeeNames(ArrayList<String> employeeNames) {
+        this.employeeNames = employeeNames;
     }
 
     public String printEmployees() {

@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -24,6 +25,8 @@ public class AddTask extends AppCompatActivity {
         chooseEmployeeSpinner = (Spinner) findViewById(R.id.chooseEmployeeSpinner);
 
         ArrayList<String> spinnerArray = new ArrayList<>();
+
+        spinnerArray.addAll(FirebaseHelper.currentBoss.getEmployeeNames());
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, spinnerArray);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
@@ -47,8 +50,17 @@ public class AddTask extends AppCompatActivity {
 
         String taskName = addTaskNameET.getText().toString();
         int taskPoints = Integer.parseInt(addTaskPointsET.getText().toString());
-        String employeeName = chooseEmployeeSpinner.getSelectedItem().toString();
 
-        Log.d("LFRA", employeeName);
+        int index = chooseEmployeeSpinner.getSelectedItemPosition();
+        String userId = FirebaseHelper.currentBoss.getEmployees().get(index);
+
+        Task t = new Task(taskPoints, taskName);
+
+        MainActivity.firebaseHelper.addTask(userId, t);
+
+        addTaskNameET.setText("");
+        addTaskPointsET.setText("");
+
+        Toast.makeText(getApplicationContext(), "Successfully added task", Toast.LENGTH_SHORT).show();
     }
 }

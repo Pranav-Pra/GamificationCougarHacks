@@ -9,6 +9,8 @@ import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.util.ArrayList;
+
 public class HomeScreen extends AppCompatActivity {
     private TextView pointsorJoinCodeTV;
     private FirebaseAuth mAuth;
@@ -55,7 +57,6 @@ public class HomeScreen extends AppCompatActivity {
         else if(level.equals("Employee")) {
             Intent vtIntent = new Intent(HomeScreen.this, ViewTask.class);
             startActivity(vtIntent);
-
         }
     }
     public void goToLeaderboard(View v) {

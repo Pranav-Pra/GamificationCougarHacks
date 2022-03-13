@@ -7,6 +7,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -31,6 +32,7 @@ public class FirebaseHelper {
     private FirebaseFirestore db;
     private Profile profile;
     private ArrayList<Employee> leaderboardObjects = new ArrayList<>();
+    private ArrayList<Task> employeeTasks = new ArrayList<>();
 
     public static Boss currentBoss;
     public static Employee currentEmployee;
@@ -90,6 +92,17 @@ public class FirebaseHelper {
         documentReference.update("bossUid", bossUid);
     }
 
+    public void addTask(String userId, Task t) {
+        db.collection("users").document(userId).collection("tasks").document(t.getInstructions()).set(t)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+
+                    }
+                });
+
+    }
+
     public void addUserToFirestore(String name, String level, String code, String newUID) {
         // this will add a document with the uid of the current user to the collection called "users"
         // for this we will create a hash map since there are only two fields - a name and the uid value
@@ -146,6 +159,28 @@ public class FirebaseHelper {
                 });
     }
 
+    public void getTasks(TasksCallback tasksCallback) {
+        db.collection("users").document(uid).collection("tasks").get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull com.google.android.gms.tasks.Task<QuerySnapshot> task) {
+                        if(task.isSuccessful()) {
+                            for(DocumentSnapshot doc : task.getResult()) {
+                                // convert the snapshot into a WishListItem object
+                                Task w = doc.toObject(Task.class);
+                                employeeTasks.add(w);
+                            }
+
+                            // I am done getting all the data
+                            Log.i("LFRA", "Success reading all data: " + employeeTasks.toString());
+                            tasksCallback.onCallback(employeeTasks);
+                        } else {
+                            Log.d("LFRA", "Error getting documents", task.getException());
+                        }
+                    }
+                });
+    }
+
     public void getData(FirestoreCallback firestoreCallback) {
         if(mAuth.getCurrentUser() != null) {
             uid = mAuth.getUid();
@@ -166,7 +201,9 @@ public class FirebaseHelper {
                                     profile = documentSnapshot.toObject(Profile.class);
 
                                 } else {
-                                    currentBoss = documentSnapshot.toObject(Boss.class);
+                                    ArrayList<String> AL = (ArrayList<String>) documentSnapshot.get("employees");
+                                    ArrayList<String> AL2 = (ArrayList<String>) documentSnapshot.get("employeeNames");
+                                    currentBoss = new Boss(name, code, level, AL, AL2);
                                     profile = documentSnapshot.toObject(Profile.class);
                                 }
 
@@ -228,4 +265,7 @@ public class FirebaseHelper {
         void onCallback(ArrayList<Code> codes);
     }
 
+    public interface TasksCallback {
+        void onCallback(ArrayList<Task> tasks);
+    }
 }
