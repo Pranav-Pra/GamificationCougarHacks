@@ -12,6 +12,9 @@ public class Leaderboard extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_leaderboard);
+        leaderboardObject = merge(leaderboardObject);
+
+
     }
 
     private static ArrayList mergeSort(ArrayList<Profile> left, ArrayList<Profile> right, ArrayList<Profile> whole) {
