@@ -5,12 +5,22 @@ public class Employee {
     String level;
     int points;
     String code;
+    String bossUid;
 
-    public Employee(String name, String level, int points, String code) {
+    public Employee(String name, String level, int points, String code, String b) {
         this.name = name;
         this.level = level;
         this.points = points;
         this.code = code;
+        this.bossUid = b;
+    }
+
+    public String getBossUid() {
+        return bossUid;
+    }
+
+    public void setBossUid(String bossUid) {
+        this.bossUid = bossUid;
     }
 
     public String getName() {
