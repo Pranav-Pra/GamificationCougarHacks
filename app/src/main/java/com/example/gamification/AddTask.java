@@ -14,13 +14,12 @@ public class AddTask extends AppCompatActivity {
         setContentView(R.layout.activity_add_task);
     }
     public void goToHomeScreen(View v) {
-        Intent hIntent = new Intent(getApplicationContext(), HomeScreen.class);
+        Intent hIntent = new Intent(AddTask.this, HomeScreen.class);
         startActivity(hIntent);
 
     }
     public void goToLeaderboard(View v) {
-        Intent lIntent = new Intent(getApplicationContext(), Leaderboard.class);
-        startActivity(lIntent);
-
+        Intent Intent = new Intent(AddTask.this, Leaderboard.class);
+        startActivity(Intent);
     }
 }

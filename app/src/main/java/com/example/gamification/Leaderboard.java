@@ -106,11 +106,11 @@ public class Leaderboard extends AppCompatActivity {
         }
     }
     public void goToHomeScreen(View v) {
-        Intent hIntent = new Intent(getApplicationContext(), HomeScreen.class);
+        Intent hIntent = new Intent(Leaderboard.this, HomeScreen.class);
         startActivity(hIntent);
     }
     public void goToAddTask(View v) {
-        Intent atIntent = new Intent(getApplicationContext(), AddTask.class);
+        Intent atIntent = new Intent(Leaderboard.this, AddTask.class);
         startActivity(atIntent);
 
     }
