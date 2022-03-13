@@ -82,6 +82,7 @@ public class FirebaseHelper {
     public void addCode(String code) {
         Map<String, Object> data = new HashMap<>();
         data.put("codeName", code);
+        data.put("bossUID", uid);
         db.collection("codes").document(code).set(data)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
