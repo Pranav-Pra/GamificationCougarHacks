@@ -97,17 +97,19 @@ public class MainActivity extends AppCompatActivity {
     public void signUp(View v) {
         // Make references to EditText in xml
 
+        EditText nameSignUp = findViewById(R.id.nameET);
         EditText emailSignUp = findViewById(R.id.emailSignUpET);
         EditText passSignUp = findViewById(R.id.passSignUpET);
         EditText confPassSignUp = findViewById(R.id.confPassSignUpET);
 
         // Get user data
-        String name =  emailSignUp.getText().toString();
-        String email = passSignUp.getText().toString();
-        String password = confPassSignUp.getText().toString();
+        String name = nameSignUp.getText().toString();
+        String email =  emailSignUp.getText().toString();
+        String password = passSignUp.getText().toString();
+        String confPassword = confPassSignUp.getText().toString();
 
         // verify all user data is entered
-        if (name.length() == 0 || email.length() == 0 || password.length() == 0) {
+        if (name.length() == 0 || email.length() == 0 || password.length() == 0 || confPassword.length() == 0) {
             Toast.makeText(getApplicationContext(), "Enter all fields", Toast.LENGTH_SHORT).show();
         }
         // verify password is at least 6 char long (otherwise firebase will deny)
