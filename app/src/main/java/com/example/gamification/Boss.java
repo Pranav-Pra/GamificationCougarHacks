@@ -17,7 +17,8 @@ public class Boss {
         employees = e;
     }
     public Boss(){
-        
+
+
     }
 
     public String getName() {

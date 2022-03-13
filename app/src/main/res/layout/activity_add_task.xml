@@ -98,7 +98,7 @@
 
 
     <EditText
-        android:id="@+id/taskName2"
+        android:id="@+id/addTaskNameET"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/border"
@@ -129,7 +129,7 @@
         app:layout_constraintVertical_bias="0.743" />
 
     <Spinner
-        android:id="@+id/employeeSpinner"
+        android:id="@+id/chooseEmployeeSpinner"
         android:layout_width="238dp"
         android:layout_height="43dp"
         android:background="@drawable/border"
@@ -141,7 +141,7 @@
         app:layout_constraintVertical_bias="0.646" />
 
     <EditText
-        android:id="@+id/points"
+        android:id="@+id/addTaskPointsET"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/border"

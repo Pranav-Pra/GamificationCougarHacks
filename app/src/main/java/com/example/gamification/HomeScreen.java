@@ -12,7 +12,10 @@ import com.google.firebase.auth.FirebaseAuth;
 public class HomeScreen extends AppCompatActivity {
     private TextView pointsorJoinCodeTV;
     private FirebaseAuth mAuth;
-    String name, level, code, points = "";
+    String name;
+    String level;
+    String code;
+    int points;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +29,7 @@ public class HomeScreen extends AppCompatActivity {
         level = intent.getStringExtra("level");
         code = intent.getStringExtra("code");
         if(level.equals("Employee")) {
-            points = intent.getStringExtra("points");
+            points = intent.getIntExtra("points", 0);
         }
 
         pointsorJoinCodeTV = findViewById(R.id.pointsOrJoinCode);

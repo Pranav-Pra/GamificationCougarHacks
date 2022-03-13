@@ -65,10 +65,14 @@ public class FirebaseHelper {
         //put data into my object using a key value pair where I label each item I put in the Map
         // the key "name" is the key that is used to label the data in firestore
         user.put("name", name);
+        ArrayList<String> employees = new ArrayList<>();
         user.put("level", level);
         user.put("code", code);
         if(level.equals("Employee")) {
             user.put("points", 0);
+        }
+        else{
+            user.put("employees", employees);
         }
 
         // this will create a new document in the collection "users" and assign it a docID that is = to newID
@@ -142,7 +146,8 @@ public class FirebaseHelper {
                 public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                     ArrayList<Code> codes = new ArrayList<>();
                     for(QueryDocumentSnapshot documentSnapshot: queryDocumentSnapshots) {
-                        codes.add(documentSnapshot.toObject(Code.class));
+                        Code current = new Code(documentSnapshot.getString("codeName"),documentSnapshot.getString("bossUID"));
+                        codes.add(current);
                     }
                     codesCallback.onCallback(codes);
                 }
@@ -151,7 +156,8 @@ public class FirebaseHelper {
 
     public void addToBossArray(String bossUid, String currentUid){
         DocumentReference profileRef = db.collection(bossUid).document(bossUid);
-        profileRef.update("employees", FieldValue.arrayUnion(currentUid));
+                profileRef.update("employees", FieldValue.arrayUnion(currentUid));
+
     }
 
     public interface FirestoreCallback {

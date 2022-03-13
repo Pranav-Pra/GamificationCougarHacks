@@ -156,17 +156,8 @@ public class MainActivity extends AppCompatActivity {
                                     firebaseHelper.addUserToFirestore(name, level,"", user.getUid());
                                 }
 
-                                // let's further investigate why this method call is needed
-                                // TODO: firebaseHelper.attachReadDataToUser();
-
                                 updateIfLoggedIn();
 
-                                // choose whatever actions you want - update UI, switch to a new screen, etc.
-                                // take the user to the screen where they can enter wish list items
-                                // getApplicationContext() will get the Activity we are currently in, that is sending the intent
-                                // Similar to how we have said "this" in the past
-                                // Intent intent = new Intent(getApplicationContext(), AddItemActivity.class);
-                                // startActivity(intent);
                             } else {
                                 // user WASN'T created
                                 Log.d(TAG, email + " sign up failed");

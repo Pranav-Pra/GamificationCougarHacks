@@ -31,12 +31,13 @@ public class EmployeeJoinCode extends AppCompatActivity {
                 boolean found = false;
                 for(Code code : codes) {
                     if(joinCode.equals(code.getCode())) {
-                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                        startActivity(intent);
                         MainActivity.firebaseHelper.updateCode(code.getCode());
                         MainActivity.firebaseHelper.updateBoss(code.getBossUid());
-                        MainActivity.firebaseHelper.addToBossArray(code.bossUid, MainActivity.firebaseHelper.getUid());
+                        Log.d("Pranav", code.getBossUid());
+                        MainActivity.firebaseHelper.addToBossArray(code.getBossUid(), MainActivity.firebaseHelper.getUid());
                         found = true;
+                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                        startActivity(intent);
                     }
                 }
                 if(!found) {
