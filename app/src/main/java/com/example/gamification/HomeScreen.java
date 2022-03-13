@@ -12,13 +12,14 @@ import com.google.firebase.auth.FirebaseAuth;
 public class HomeScreen extends AppCompatActivity {
     private TextView pointsorJoinCodeTV;
     private FirebaseAuth mAuth;
+    String name, level, code, points = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_screen);
 
-        String name, level, code, points = "";
+
 
         Intent intent = getIntent();
         name = intent.getStringExtra("name");
@@ -41,5 +42,16 @@ public class HomeScreen extends AppCompatActivity {
         Intent welcomeIntent = new Intent(getApplicationContext(), MainActivity.class);
         startActivity(welcomeIntent);
 
+    }
+    public void goToTaskScreen(View v) {
+        if(level.equals("Boss")) {
+            setContentView(R.layout.activity_add_task);
+        }
+        else if(level.equals("Employee")) {
+            setContentView(R.layout.activity_view_task);
+        }
+    }
+    public void goToLeaderboard(View v) {
+        setContentView(R.layout.activity_leaderboard);
     }
 }

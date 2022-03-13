@@ -3,6 +3,7 @@ package com.example.gamification;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -102,5 +103,11 @@ public class Leaderboard extends AppCompatActivity {
 
             return mergeSort(left, right, a);
         }
+    }
+    public void goToHomeScreen(View v) {
+        setContentView(R.layout.activity_home_screen);
+    }
+    public void goToAddTask(View v) {
+        setContentView(R.layout.activity_add_task);
     }
 }
