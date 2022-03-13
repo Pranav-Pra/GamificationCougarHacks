@@ -35,6 +35,7 @@ public class EmployeeJoinCode extends AppCompatActivity {
                         MainActivity.firebaseHelper.updateBoss(code.getBossUid());
                         Log.d("Pranav", code.getBossUid());
                         MainActivity.firebaseHelper.addToBossArray(code.getBossUid(), MainActivity.firebaseHelper.getUid());
+                        MainActivity.firebaseHelper.addToBossNameArray(code.getBossUid(), FirebaseHelper.currentEmployee.getName());
                         found = true;
                         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                         startActivity(intent);

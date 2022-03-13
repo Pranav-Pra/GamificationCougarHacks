@@ -117,6 +117,7 @@
         android:id="@+id/submitBtn"
         android:layout_width="100dp"
         android:layout_height="38dp"
+        android:onClick="addTask"
         android:text="Submit"
         android:textColor="@color/pink_red"
         android:textSize="12sp"
@@ -130,8 +131,9 @@
 
     <Spinner
         android:id="@+id/chooseEmployeeSpinner"
-        android:layout_width="238dp"
-        android:layout_height="43dp"
+        android:layout_width="243dp"
+        android:layout_height="wrap_content"
+        android:spinnerMode="dropdown"
         android:background="@drawable/border"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -147,7 +149,7 @@
         android:background="@drawable/border"
         android:ems="10"
         android:hint="Points:"
-        android:inputType="textPersonName"
+        android:inputType="number"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

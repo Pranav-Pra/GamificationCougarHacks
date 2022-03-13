@@ -48,18 +48,18 @@ public class HomeScreen extends AppCompatActivity {
     }
     public void goToTaskScreen(View v) {
         if(level.equals("Boss")) {
-            Intent atIntent = new Intent(getApplicationContext(), AddTask.class);
+            Intent atIntent = new Intent(HomeScreen.this, AddTask.class);
             startActivity(atIntent);
 
         }
         else if(level.equals("Employee")) {
-            Intent vtIntent = new Intent(getApplicationContext(), ViewTask.class);
+            Intent vtIntent = new Intent(HomeScreen.this, ViewTask.class);
             startActivity(vtIntent);
 
         }
     }
     public void goToLeaderboard(View v) {
-        Intent lIntent = new Intent(getApplicationContext(), Leaderboard.class);
+        Intent lIntent = new Intent(HomeScreen.this, Leaderboard.class);
         startActivity(lIntent);
 
     }

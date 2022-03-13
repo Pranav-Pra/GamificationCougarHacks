@@ -60,4 +60,12 @@ public class Boss {
     public void setEmployees(ArrayList<String> employees) {
         this.employees = employees;
     }
+
+    public String printEmployees() {
+        String str = "";
+        for(String s : employees) {
+            str += s + "\n";
+        }
+        return str;
+    }
 }

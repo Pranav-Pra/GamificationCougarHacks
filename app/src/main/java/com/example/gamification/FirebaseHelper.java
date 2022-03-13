@@ -32,6 +32,9 @@ public class FirebaseHelper {
     private Profile profile;
     private ArrayList<Employee> leaderboardObjects = new ArrayList<>();
 
+    public static Boss currentBoss;
+    public static Employee currentEmployee;
+
     public FirebaseHelper() {
         //get a reference to or the instance of the auth and firestore elemnts
         // these lines of code establish the connections to the auth and database we are linked to
@@ -157,13 +160,13 @@ public class FirebaseHelper {
                                 String code = documentSnapshot.getString("code");
 
                                 if(level.equals("Employee")) {
-                                    Employee current = documentSnapshot.toObject(Employee.class);
+                                    currentEmployee = documentSnapshot.toObject(Employee.class);
                                     points = (int)(Math.floor(documentSnapshot.getDouble("points")));
                                     profile = new Profile(name, points, level, code);
                                     profile = documentSnapshot.toObject(Profile.class);
 
                                 } else {
-                                    Boss currentBoss = documentSnapshot.toObject(Boss.class);
+                                    currentBoss = documentSnapshot.toObject(Boss.class);
                                     profile = documentSnapshot.toObject(Profile.class);
                                 }
 
@@ -210,6 +213,11 @@ public class FirebaseHelper {
         DocumentReference profileRef = db.collection(bossUid).document(bossUid);
                 profileRef.update("employees", FieldValue.arrayUnion(currentUid));
 
+    }
+
+    public void addToBossNameArray(String bossUid, String currentName){
+        DocumentReference profileRef = db.collection(bossUid).document(bossUid);
+        profileRef.update("employeeNames", FieldValue.arrayUnion(currentName));
     }
 
     public interface FirestoreCallback {
