@@ -4,10 +4,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
+
+import com.google.firebase.auth.FirebaseAuth;
 
 public class HomeScreen extends AppCompatActivity {
     private TextView pointsorJoinCodeTV;
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,5 +34,12 @@ public class HomeScreen extends AppCompatActivity {
         } else if(level.equals("Employee")) {
             pointsorJoinCodeTV.setText("Points: " + points);
         }
+    }
+    public void signOut(View v) {
+        mAuth.getInstance().signOut();
+
+        Intent welcomeIntent = new Intent(getApplicationContext(), MainActivity.class);
+        startActivity(welcomeIntent);
+
     }
 }
