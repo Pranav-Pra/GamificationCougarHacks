@@ -108,10 +108,10 @@ public class FirebaseHelper {
                                 String level = documentSnapshot.getString("level");
                                 if(level.equals("Employee")) {
                                     Employee current = documentSnapshot.toObject(Employee.class);
-                                    Profile profile = documentSnapshot.toObject(Profile.class);
+                                    profile = documentSnapshot.toObject(Profile.class);
                                 } else {
                                     Boss currentBoss = documentSnapshot.toObject(Boss.class);
-                                    Profile profile = documentSnapshot.toObject(Profile.class);
+                                    profile = documentSnapshot.toObject(Profile.class);
                                 }
 
 
