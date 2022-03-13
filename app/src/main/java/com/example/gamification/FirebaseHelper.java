@@ -1,19 +1,25 @@
 package com.example.gamification;
 
+import android.content.Intent;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -24,7 +30,7 @@ public class FirebaseHelper {
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
     private Profile profile;
-    private ArrayList<Profile> leaderboardObjects = new ArrayList<>();
+    private ArrayList<Employee> leaderboardObjects = new ArrayList<>();
 
     public FirebaseHelper() {
         //get a reference to or the instance of the auth and firestore elemnts
@@ -32,6 +38,33 @@ public class FirebaseHelper {
         // based on the json file
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
+    }
+    public FirebaseHelper(String bossUid) {
+        mAuth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance();
+        db.collection("users").addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                // clear out the array list so that none of the events are duplicated in the display
+                leaderboardObjects.clear();
+                Log.i("andrew", "change made to data");
+                // this for each loop will get each Document Snapshot from the query, and one at a time,
+                // convert them to an object of the Event class and then add them to the array list
+
+                for (QueryDocumentSnapshot doc : value) {
+                    Profile profile = doc.toObject(Profile.class);
+                    if(profile.getBossUid().equals(bossUid)){
+                        Employee currentLeader = new Employee(profile.getName(), profile.getLevel(),
+                                profile.getPoints(), profile.getCode(), profile.getBossUid());
+                        leaderboardObjects.add(currentLeader);
+                    }
+
+                }
+            }
+        });
+    }
+    public ArrayList<Employee> getLeaderboardObjects(){
+        return leaderboardObjects;
     }
 
     public FirebaseAuth getmAuth() {
@@ -46,11 +79,11 @@ public class FirebaseHelper {
     }
 
     public void updateCode(String code) {
-        DocumentReference documentReference = db.collection(uid).document(uid);
+        DocumentReference documentReference = db.collection("users").document(uid);
         documentReference.update("code", code);
     }
     public void updateBoss(String bossUid){
-        DocumentReference documentReference = db.collection(uid).document(uid);
+        DocumentReference documentReference = db.collection("users").document(uid);
         documentReference.update("bossUid", bossUid);
     }
 
@@ -76,7 +109,7 @@ public class FirebaseHelper {
         }
 
         // this will create a new document in the collection "users" and assign it a docID that is = to newID
-        db.collection(newUID).document(newUID).set(user)
+        db.collection("users").document(newUID).set(user)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {
@@ -113,7 +146,7 @@ public class FirebaseHelper {
     public void getData(FirestoreCallback firestoreCallback) {
         if(mAuth.getCurrentUser() != null) {
             uid = mAuth.getUid();
-            db.collection(uid).document(uid).get()
+            db.collection("users").document(uid).get()
                     .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                         @Override
                         public void onSuccess(@NonNull DocumentSnapshot documentSnapshot) {
@@ -122,13 +155,16 @@ public class FirebaseHelper {
                                 String name = documentSnapshot.getString("name");
                                 String level = documentSnapshot.getString("level");
                                 String code = documentSnapshot.getString("code");
+
                                 if(level.equals("Employee")) {
                                     Employee current = documentSnapshot.toObject(Employee.class);
                                     points = (int)(Math.floor(documentSnapshot.getDouble("points")));
                                     profile = new Profile(name, points, level, code);
+                                    profile = documentSnapshot.toObject(Profile.class);
+
                                 } else {
                                     Boss currentBoss = documentSnapshot.toObject(Boss.class);
-                                    profile = new Profile(name, level, code);
+                                    profile = documentSnapshot.toObject(Profile.class);
                                 }
 
 
@@ -138,6 +174,22 @@ public class FirebaseHelper {
                     });
         }
     }
+
+    public ArrayList<String> getUIDListBoss(){
+        ArrayList<String> res = new ArrayList<>();
+        getData(new FirebaseHelper.FirestoreCallback() {
+            @Override
+            public void onCallback(Profile profile) {
+                    for (int i = 0; i < profile.getEmployees().size(); i++) {
+                        res.add(profile.getEmployees().get(i));
+                    }
+                }
+
+        });
+        return res;
+    }
+
+
 
     public void getCodes(CodesCallback codesCallback) {
         db.collection("codes").get()

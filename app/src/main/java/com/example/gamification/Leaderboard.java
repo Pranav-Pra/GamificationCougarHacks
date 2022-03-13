@@ -10,15 +10,51 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 public class Leaderboard extends AppCompatActivity {
-    ArrayList<Profile> leaderboardObject = new ArrayList<>();
+    ArrayList<Employee> leaderboardObject = new ArrayList<>();
     FirebaseHelper dbHelper;
+    String bUID = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_leaderboard);
         dbHelper = new FirebaseHelper();
-       // leaderboardObject = dbHelper.getGroupProfiles();
-        leaderboardObject = merge(leaderboardObject);
+        dbHelper.getData(new FirebaseHelper.FirestoreCallback() {
+            @Override
+            public void onCallback(Profile profile) {
+                if(profile.getLevel().equals("Boss")){
+                    bUID = dbHelper.getUid();
+                }
+                else{
+                    bUID = profile.getBossUid();
+                }
+                dbHelper = new FirebaseHelper(bUID);
+                leaderboardObject = dbHelper.getLeaderboardObjects();
+                TextView text1 = findViewById(R.id.first);
+                text1.setText("1\t" + leaderboardObject.get(0).toString());
+                TextView text2 = findViewById(R.id.textView2);
+                text2.setText("2\t" + leaderboardObject.get(1).toString());
+                TextView text3 = findViewById(R.id.textView3);
+                text3.setText("3\t" + leaderboardObject.get(2).toString());
+                TextView text4 = findViewById(R.id.textView4);
+                text4.setText("4\t" + leaderboardObject.get(3).toString());
+                TextView text5 = findViewById(R.id.textView5);
+                text5.setText("5\t" + leaderboardObject.get(4).toString());
+                TextView text6 = findViewById(R.id.textView6);
+                text6.setText("6\t" + leaderboardObject.get(5).toString());
+                TextView text7 = findViewById(R.id.textView7);
+                text7.setText("7\t" + leaderboardObject.get(6).toString());
+                TextView text8 = findViewById(R.id.textView8);
+                text8.setText("8\t" + leaderboardObject.get(7).toString());
+                TextView text9 = findViewById(R.id.textView9);
+                text9.setText("9\t" + leaderboardObject.get(8).toString());
+                TextView text10 = findViewById(R.id.textView10);
+                text10.setText("10\t" + leaderboardObject.get(9).toString());
+
+            }
+
+        });
+       // leaderboardObject = merge(leaderboardObject);
 
         TextView text1 = findViewById(R.id.first);
         text1.setText("1\t" + leaderboardObject.get(0).toString());

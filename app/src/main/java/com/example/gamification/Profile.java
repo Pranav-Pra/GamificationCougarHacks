@@ -8,6 +8,7 @@ public class Profile {
     String level;
     String code;
     ArrayList<String> employees;
+    String bossUid;
 
     public Profile(String n, int p, String l, String c){
         name = n;
@@ -21,6 +22,29 @@ public class Profile {
         level = l;
         code = c;
         employees = e;
+    }
+
+    public ArrayList<String> getEmployees() {
+        return employees;
+    }
+
+    public void setEmployees(ArrayList<String> employees) {
+        this.employees = employees;
+    }
+
+    public String getBossUid() {
+        return bossUid;
+    }
+
+    public void setBossUid(String bossUid) {
+        this.bossUid = bossUid;
+    }
+
+    public Profile(String n, String l, String c, String e){
+        name = n;
+        level = l;
+        code = c;
+        bossUid = e;
     }
     public Profile(String n, String l, String c){
         name = n;
