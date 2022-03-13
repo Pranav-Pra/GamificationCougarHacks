@@ -210,13 +210,13 @@ public class FirebaseHelper {
     }
 
     public void addToBossArray(String bossUid, String currentUid){
-        DocumentReference profileRef = db.collection(bossUid).document(bossUid);
-                profileRef.update("employees", FieldValue.arrayUnion(currentUid));
+        DocumentReference profileRef = db.collection("users").document(bossUid);
+        profileRef.update("employees", FieldValue.arrayUnion(currentUid));
 
     }
 
     public void addToBossNameArray(String bossUid, String currentName){
-        DocumentReference profileRef = db.collection(bossUid).document(bossUid);
+        DocumentReference profileRef = db.collection("users").document(bossUid);
         profileRef.update("employeeNames", FieldValue.arrayUnion(currentName));
     }
 
