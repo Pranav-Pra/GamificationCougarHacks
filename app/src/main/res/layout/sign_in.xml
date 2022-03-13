@@ -36,6 +36,7 @@
         android:id="@+id/signInBtn"
         android:layout_width="135dp"
         android:layout_height="62dp"
+        android:onClick="signIn"
         android:text="Sign In"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"

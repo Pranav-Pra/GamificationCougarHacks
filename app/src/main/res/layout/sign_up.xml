@@ -65,6 +65,7 @@
         android:id="@+id/signUpBtn"
         android:layout_width="135dp"
         android:layout_height="62dp"
+        android:onClick="signUp"
         android:text="Sign Up"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
