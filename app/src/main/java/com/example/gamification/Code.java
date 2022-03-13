@@ -8,6 +8,9 @@ public class Code {
         this.code = code;
         this.bossUid = bossUid;
     }
+    public Code(){
+
+    }
 
     public String getCode() {
         return code;
@@ -23,5 +26,8 @@ public class Code {
 
     public void setBossUid(String bossUid) {
         this.bossUid = bossUid;
+    }
+    public boolean equals(Code current, Code other){
+        return(current.getCode() == other.getCode());
     }
 }
