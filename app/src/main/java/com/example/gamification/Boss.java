@@ -16,6 +16,9 @@ public class Boss {
         level = l;
         employees = e;
     }
+    public Boss(){
+        
+    }
 
     public String getName() {
         return name;

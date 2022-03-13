@@ -14,6 +14,9 @@ public class Employee {
         this.code = code;
         this.bossUid = b;
     }
+    public Employee(){
+
+    }
 
     public String getBossUid() {
         return bossUid;
