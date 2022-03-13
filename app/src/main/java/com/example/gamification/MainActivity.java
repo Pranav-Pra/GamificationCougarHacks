@@ -6,7 +6,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -25,6 +27,20 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         firebaseHelper = new FirebaseHelper();
+
+        Spinner spinnerSignIn = (Spinner) findViewById(R.id.signInSpinner);
+        ArrayAdapter<CharSequence> adapterSignIn = ArrayAdapter.createFromResource(this,
+                R.array.bossOrEmployee, android.R.layout.simple_spinner_item);
+        //https://developer.android.com/guide/topics/ui/controls/spinner
+        adapterSignIn.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerSignIn.setAdapter(adapterSignIn);
+
+        Spinner spinnerSignUp = (Spinner) findViewById(R.id.signUpSpinner);
+        ArrayAdapter<CharSequence> adaptersignUp = ArrayAdapter.createFromResource(this,
+                R.array.bossOrEmployee, android.R.layout.simple_spinner_item);
+        //https://developer.android.com/guide/topics/ui/controls/spinner
+        adaptersignUp.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerSignIn.setAdapter(adaptersignUp);
     }
 
     public void signIn(View v) {

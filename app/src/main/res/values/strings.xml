@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Gamification</string>
+    <string-array name = "bossOrEmployee">
+        <item>Boss</item>
+        <item>Employee</item>
+    </string-array>
 </resources>
