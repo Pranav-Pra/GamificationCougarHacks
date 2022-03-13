@@ -2,6 +2,7 @@ package com.example.gamification;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -105,9 +106,12 @@ public class Leaderboard extends AppCompatActivity {
         }
     }
     public void goToHomeScreen(View v) {
-        setContentView(R.layout.activity_home_screen);
+        Intent hIntent = new Intent(getApplicationContext(), HomeScreen.class);
+        startActivity(hIntent);
     }
     public void goToAddTask(View v) {
-        setContentView(R.layout.activity_add_task);
+        Intent atIntent = new Intent(getApplicationContext(), AddTask.class);
+        startActivity(atIntent);
+
     }
 }
