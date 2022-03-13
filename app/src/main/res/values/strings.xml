@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Gamification</string>
+    <string name="app_name">GameTime</string>
     <string-array name="bossOrEmployee">
         <item>Boss</item>
         <item>Employee</item>
