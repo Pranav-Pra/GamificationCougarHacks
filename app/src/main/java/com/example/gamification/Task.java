@@ -4,6 +4,8 @@ public class Task {
     private int pointValue;
     private String instructions;
 
+    public Task() {}
+
     public Task(int p, String i){
         this.pointValue = p;
         this.instructions = i;
@@ -27,6 +29,6 @@ public class Task {
 
     @Override
     public String toString() {
-        return ("This task is " + instructions + " and it is worth" + pointValue);
+        return (instructions + "\n" + pointValue + " points");
     }
 }

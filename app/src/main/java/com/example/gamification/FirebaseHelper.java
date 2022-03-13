@@ -87,6 +87,12 @@ public class FirebaseHelper {
         DocumentReference documentReference = db.collection("users").document(uid);
         documentReference.update("code", code);
     }
+
+    public void updatePoints(int points, String id) {
+        DocumentReference documentReference = db.collection("users").document(uid);
+        documentReference.update("points", currentEmployee.getPoints() + points);
+    }
+
     public void updateBoss(String bossUid){
         DocumentReference documentReference = db.collection("users").document(uid);
         documentReference.update("bossUid", bossUid);
@@ -160,6 +166,7 @@ public class FirebaseHelper {
     }
 
     public void getTasks(TasksCallback tasksCallback) {
+        employeeTasks.clear();
         db.collection("users").document(uid).collection("tasks").get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -179,6 +186,10 @@ public class FirebaseHelper {
                         }
                     }
                 });
+    }
+
+    public ArrayList<Task> getEmployeeTasks() {
+        return employeeTasks;
     }
 
     public void getData(FirestoreCallback firestoreCallback) {
