@@ -105,18 +105,16 @@ public class FirebaseHelper {
                         @Override
                         public void onSuccess(@NonNull DocumentSnapshot documentSnapshot) {
                             if (documentSnapshot.exists()) {
-                                int points;
-                                String name = documentSnapshot.getString("name");
                                 String level = documentSnapshot.getString("level");
-                                String code = documentSnapshot.getString("code");
                                 if(level.equals("Employee")) {
-                                    points = (int)(Math.floor(documentSnapshot.getDouble("points")));
-                                    profile = new Profile(name, points, level, code);
+                                    Employee current = documentSnapshot.toObject(Employee.class);
+                                    Profile profile = documentSnapshot.toObject(Profile.class);
                                 } else {
-
-                                    ArrayList<String> u = new ArrayList<>();
-                                    profile = new Profile(name, level, code, u);
+                                    Boss currentBoss = documentSnapshot.toObject(Boss.class);
+                                    Profile profile = documentSnapshot.toObject(Profile.class);
                                 }
+
+
                                 firestoreCallback.onCallback(profile);
                             }
                         }
@@ -145,4 +143,5 @@ public class FirebaseHelper {
     public interface CodesCallback {
         void onCallback(ArrayList<String> codes);
     }
+
 }

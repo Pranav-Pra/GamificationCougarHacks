@@ -22,6 +22,11 @@ public class Profile {
         code = c;
         employees = e;
     }
+    public Profile(String n, String l, String c){
+        name = n;
+        level = l;
+        code = c;
+    }
 
     public Profile(){
         name = "";
