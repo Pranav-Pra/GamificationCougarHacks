@@ -148,7 +148,9 @@ public class MainActivity extends AppCompatActivity {
 
                                 // add a document to our database to represent this user
                                 if(level.equals("Boss")) {
-                                    firebaseHelper.addUserToFirestore(name, level,generateRandomCode(), user.getUid());
+                                    String code = generateRandomCode();
+                                    firebaseHelper.addUserToFirestore(name, level, code, user.getUid());
+                                    firebaseHelper.addCode(code);
                                 } else {
                                     firebaseHelper.addUserToFirestore(name, level,"", user.getUid());
                                 }

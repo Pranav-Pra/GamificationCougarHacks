@@ -9,6 +9,8 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -71,6 +73,24 @@ public class FirebaseHelper {
                 });
     }
 
+    public void addCode(String code) {
+        Map<String, Object> data = new HashMap<>();
+        data.put("codeName", code);
+        db.collection("codes").document(code).set(data)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        Log.i("Pranav", "code added to database: " + code);
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.d("Pranav", "error adding code", e);
+                    }
+                });
+    }
+
     public void getData(FirestoreCallback firestoreCallback) {
         if(mAuth.getCurrentUser() != null) {
             uid = mAuth.getUid();
@@ -96,7 +116,25 @@ public class FirebaseHelper {
         }
     }
 
+    public void getCodes(CodesCallback codesCallback) {
+        db.collection("codes").get()
+            .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                @Override
+                public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                    ArrayList<String> codes = new ArrayList<>();
+                    for(QueryDocumentSnapshot documentSnapshot: queryDocumentSnapshots) {
+                        codes.add(documentSnapshot.getId());
+                    }
+                    codesCallback.onCallback(codes);
+                }
+            });
+    }
+
     public interface FirestoreCallback {
         void onCallback(Profile profile);
+    }
+
+    public interface CodesCallback {
+        void onCallback(ArrayList<String> codes);
     }
 }
