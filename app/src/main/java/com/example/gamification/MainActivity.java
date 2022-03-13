@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -30,12 +31,12 @@ public class MainActivity extends AppCompatActivity {
         // Note we don't care what they entered for name here
         // it could be blank
 
-        emailET = findViewById(R.id.emailTV);
-        passwordET = findViewById(R.id.passwordTV);
+        EditText emailSignIn = findViewById(R.id.emailSignInET);
+        EditText passSignIn = findViewById(R.id.passSignInET);
 
         // Get user data
-        String email = emailET.getText().toString();
-        String password = passwordET.getText().toString();
+        String email = emailSignIn.getText().toString();
+        String password = passSignIn.getText().toString();
 
         // verify all user data is entered
         if (email.length() == 0 || password.length() == 0) {
@@ -79,14 +80,15 @@ public class MainActivity extends AppCompatActivity {
 
     public void signUp(View v) {
         // Make references to EditText in xml
-        nameET = findViewById(R.id.nameTV);
-        emailET = findViewById(R.id.emailTV);
-        passwordET = findViewById(R.id.passwordTV);
+
+        EditText emailSignUp = findViewById(R.id.emailSignUpET);
+        EditText passSignUp = findViewById(R.id.passSignUpET);
+        EditText confPassSignUp = findViewById(R.id.confPassSignUpET);
 
         // Get user data
-        String name = nameET.getText().toString();
-        String email = emailET.getText().toString();
-        String password = passwordET.getText().toString();
+        String name =  emailSignUp.getText().toString();
+        String email = passSignUp.getText().toString();
+        String password = confPassSignUp.getText().toString();
 
         // verify all user data is entered
         if (name.length() == 0 || email.length() == 0 || password.length() == 0) {
